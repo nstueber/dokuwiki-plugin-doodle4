@@ -1,8 +1,9 @@
 /**
  * JavsScript methods for the dokuwiki doodle plugin
  * 
+ * @author  Nico Stueber <nstueber@v-markt.de>
  * @author  Robert Rackl <spam11@doogie.de>
- * @date    January 2011
+ * @date    February 2019
  */
 
 /**
