@@ -2,8 +2,9 @@
 /**
  * Doodle Plugin 3: helps to schedule meetings
  *
- * @license	GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * @url     http://www.dokuwiki.org/plugin:doodle3
+ * @license	GPL 3 (http://www.gnu.org/licenses/gpl.html)
+ * @url     http://www.dokuwiki.org/plugin:doodle4
+ * @author	Nico Stueber <nstueber@v-markt.de>
  * @author	Matthias Jung <matzekuh@web.de>
  * @author  Robert Rackl <wiki@doogie.de>
  * @author	Jonathan Tsai <tryweb@ichiayi.com>
@@ -80,12 +81,12 @@ class syntax_plugin_doodle3 extends DokuWiki_Syntax_Plugin
      */
     function getInfo() {
         return array(
-            'author' => 'Matthias Jung',
-            'email'  => 'matzekuh@web.de',
-            'date'   => '2019/02/05',
-            'name'   => 'Doodle Plugin 3',
-            'desc'   => 'helps to schedule meetings',
-            'url'    => 'https://www.dokuwiki.org/plugin:doodle3',
+            'author' => 'Nico Stueber',
+            'email'  => 'nstueber@v-markt.de',
+            'date'   => '2019/02/20',
+            'name'   => 'Doodle Plugin 4',
+            'desc'   => 'Survey / Poll ',
+            'url'    => 'https://www.dokuwiki.org/plugin:doodle4',
         );
     }
     function getType()  { return 'substition';}
