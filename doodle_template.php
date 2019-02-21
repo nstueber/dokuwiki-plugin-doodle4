@@ -10,6 +10,7 @@
 
   $template = $this->template;
   $c = count($template['choices']);
+  $c1 = count($template['doodleData']);
 ?>
 
 <!-- Doodle Plugin -->
@@ -23,6 +24,11 @@
 <input type="hidden" name="edit__entry"   value="">
 <input type="hidden" name="delete__entry" value="">
 
+<?php
+//check UserList vertical or horizontal  
+if ($template['userlist'] == 'vertical'){ 
+//vertical	
+?>
 
  <table class="inline">
    <tbody>
@@ -79,6 +85,112 @@
    </tbody>
  </table>
 
+<?php	
+}
+else
+{
+	
+//horizontal
+/* Input fields, if allowed. */
+$trArray = preg_split('[<tr>]', $template['inputTR']);
+foreach ($trArray as $tr){
+	$trA = $trA . $tr;
+}
+$trArray = preg_split('[</td>]', $trA);
+$i1 = 0;
+$trArrayUser = array();
+foreach ($trArray as $tr){
+	$trArrayUser[$i1] = $tr . '</td>';;
+	$i1 = $i1 + 1;; 
+}
+$trArray = preg_split('[</TD>]', $trArrayUser[1]);
+$i1 = 0;
+$trArrayCheck = array();
+foreach ($trArray as $tr){
+	$trArrayCheck[$i1] = $tr . '</td>';
+	$i1 = $i1 + 1;
+}
+ ?>
+ <table class="inline">
+   <tbody>
+     <tr class="row0">
+       <th class="centeralign" colspan="<?php echo ($c1+3) ?>">
+         <?php echo $template['title'] ?>
+       </th>
+     </tr>
+
+     <tr class="row1">
+	 <!--edit lang for first column-->
+         <th class="col0"><?php echo '' ?>
+		 </th>
+          <?php $durchlauf = 1; $userZahl = 0; $checkbox = 0;
+          foreach ($template['choices'] as $choice) {     
+	         if($durchlauf == 1){        
+                foreach ($template['doodleData'] as $fullname => $userData) { ?>
+                 <td class="centeralign" style="width:<?php echo $template['fieldwidth'] ?>">
+                  <?php echo $userData['editLinks'].$fullname; ?> 			  
+                 </td>	   
+ <?php 
+		            for ($col = 0; $col < $c; $col++) {
+                     $userAuswahl[$userZahl][$col] = $userData['choice'][$col];
+                    }
+		        $userZahl++;      
+		        }
+	            $userZahl = 0; 
+				//Username for Vote
+	            echo $trArrayUser[0];  
+               // Results   	 
+		        if ($template['showSum']){
+				  echo ' <th class="rightalign"><b>';
+				  echo $template['result'];
+				  echo '</b></th>';				
+		       }
+		   }
+ ?>		 	 			 
+	 </tr> 
+        <?php
+        $durchlauf = 2;
+	    if($durchlauf > 1){?>
+	<tr>
+	    <td class="rightalign" ><?php echo $choice ?>
+		</td> 	   
+	  <?php for ($col = 0; $col < $c1 ; $col++) {
+			 //Userchoices
+             echo $userAuswahl[$col][$userZahl];
+            }     
+		    //User Input if allowed
+		    echo $trArrayCheck[$checkbox];		 
+		    // Results / sum per row -->
+		    if ($template['showSum']){
+		
+					echo '<th class="centeralign"><b>';
+					echo $template['count'][$checkbox];
+					echo '</b></th>';		
+		    }   
+		    $checkbox = $checkbox + 1;
+		      ?>	
+    </tr>
+ <?php  } 
+        $userZahl++;      
+      }?>
+<?php
+     /* Input fields, if allowed. */
+ //	Vote Button 
+ echo $trArrayCheck[count($trArrayCheck) -1];
+?>
+<?php if (!empty($template['msg'])) { ?>    
+     <tr>
+       <td colspan="<?php echo $c+1 ?>">
+         <?php echo $template['msg'] ?>
+       </td>
+     </tr>
+<?php } ?>
+   </tbody>
+ </table>
+
+<?php
+}
+?>	
 
 </form>
 </div>
