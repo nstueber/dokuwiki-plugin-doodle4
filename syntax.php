@@ -1,6 +1,6 @@
 <?php
 /**
- * Doodle Plugin 3: helps to schedule meetings
+ * Doodle Plugin 4: helps to schedule meetings
  *
  * @license	GPL 3 (http://www.gnu.org/licenses/gpl.html)
  * @url     http://www.dokuwiki.org/plugin:doodle4
@@ -70,7 +70,7 @@ require_once(DOKU_PLUGIN.'syntax.php');
  * The doodle's data is saved in '<dokuwiki>/data/meta/title_of_vote.doodle'. The filename is the (masked) title. 
  * This has the advantage that you can move your doodle to another page, without loosing the data.
  */
-class syntax_plugin_doodle3 extends DokuWiki_Syntax_Plugin 
+class syntax_plugin_doodle4 extends DokuWiki_Syntax_Plugin 
 {
     const AUTH_NONE = 0;
     const AUTH_IP   = 1;
@@ -97,7 +97,7 @@ class syntax_plugin_doodle3 extends DokuWiki_Syntax_Plugin
      * Connect pattern to lexer
      */
     function connectTo($mode) {
-        $this->Lexer->addSpecialPattern('<doodle\b.*?>.+?</doodle>', $mode, 'plugin_doodle3');
+        $this->Lexer->addSpecialPattern('<doodle\b.*?>.+?</doodle>', $mode, 'plugin_doodle4');
     }
 
     /**
@@ -354,10 +354,10 @@ class syntax_plugin_doodle3 extends DokuWiki_Syntax_Plugin
                 // the javascript source of these functions is in script.js
                 $this->template['doodleData']["$fullname"]['editLinks'] = 
                    '<a href="javascript:editEntry(\''.$formId.'\',\''.$fullname.'\')">'.
-                   '  <img src="'.DOKU_BASE.'lib/plugins/doodle3/pencil.png" alt="edit entry" style="float:left">'.
+                   '  <img src="'.DOKU_BASE.'lib/plugins/doodle4/pencil.png" alt="edit entry" style="float:left">'.
                    '</a>'.
                    '<a href="javascript:deleteEntry(\''.$formId.'\',\''.$fullname.'\')">'.
-                   '  <img src="'.DOKU_BASE.'lib/plugins/doodle3/delete.png" alt="delete entry" style="float:left">'.
+                   '  <img src="'.DOKU_BASE.'lib/plugins/doodle4/delete.png" alt="delete entry" style="float:left">'.
                    '</a>';
             }
         }
