@@ -30,6 +30,7 @@ require_once(DOKU_PLUGIN.'syntax.php');
  *   fieldwidth="auto|123px"
  *   showMode="all|own"
  *   showSum="true|false"
+ *   userlist="vertical|horizontal"
  *   closed="true|false" >
  *     * Option 1 
  *     * Option 2 **some wikimarkup** \\ is __allowed__!
@@ -64,6 +65,10 @@ require_once(DOKU_PLUGIN.'syntax.php');
  * <h3>showsum</h3>
  * true (default) - sum / result is displayed at the end
  * false	  - no sum / result
+ *
+ * <h3>userlist</h3>
+ * vertical	- User displayed in Rows
+ * horizontal	- User displayed in Columns
  *
  * If closed=="true", then no one can vote anymore. The result will still be shown on the page.
  *
@@ -119,7 +124,8 @@ class syntax_plugin_doodle4 extends DokuWiki_Syntax_Plugin
             'adminMail'      => null,
             'voteType'       => 'default',
             'closed'         => FALSE,
-	    'fieldwidth'     => 'auto'
+	    'fieldwidth'     => 'auto',
+	    'userlist'	     => 'vertical'
         );
 
         //----- parse parameteres into name="value" pairs  
@@ -183,7 +189,12 @@ class syntax_plugin_doodle4 extends DokuWiki_Syntax_Plugin
 		} else {
 			$params['showSum'] = 0;		
 		}
-            } else       
+            } else 
+	    if (strcmp($name, "USERLIST") == 0) {
+		if ($value == 'vertical' || $value == 'horizontal'){
+			$params['userlist'] = $value;
+		}
+            } else    
             if (strcmp($name, "SORT") == 0) {
                 $params['sort'] = $value;  // make it possible to sort by time
             } else
@@ -325,7 +336,8 @@ class syntax_plugin_doodle4 extends DokuWiki_Syntax_Plugin
             $this->template['msg'] = $this->getLang('poll_closed');
         }
 	$this->template['showSum'] = $this->params['showSum'];
-        
+        $this->template['userlist'] = $this->params['userlist'];
+	    
         for($col = 0; $col < count($this->choices); $col++) {
             $this->template['count'][$col] = 0;
             foreach ($this->doodle as $fullname => $userData) {
