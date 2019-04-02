@@ -357,7 +357,7 @@ class syntax_plugin_doodle4 extends DokuWiki_Syntax_Plugin
             foreach ($this->doodle as $fullname => $userData) {
 		if ($this->isAllowedToSeeEntry($fullname)){    
 			if (!empty($userData['username'])) {
-			  $this->template['doodleData']["$fullname"]['username'] = '&nbsp;('.$userData['username'].')';
+			  $this->template['doodleData']["$fullname"]['username'] = $userData['username'];
 			}
 			if (in_array($col, $userData['choices'])) {
 			    $timeLoc = strftime($conf['dformat'], $userData['time']);  // localized time of vote
