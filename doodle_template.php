@@ -46,8 +46,16 @@ if ($template['userlist'] == 'vertical'){
 
 <?php foreach ($template['doodleData'] as $fullname => $userData) { ?>
      <tr>
-         <td class="rightalign">
-           <?php echo $userData['editLinks'].$fullname.$userData['username'] ?>
+         <td class="rightalign"> 
+           <?php
+		if ($template['printName'] == 'both'){
+			echo $userData['editLinks'].$fullname.' ('.$userData['username'].')'; 
+		} elseif ($template['printName'] == 'fullname'){
+			 echo $userData['editLinks'].$fullname;
+		}elseif ($template['printName'] == 'username'){
+			echo $userData['editLinks'].$userData['username']; 
+		} 
+	?>
          </td>
          <?php for ($col = 0; $col < $c; $col++) {
              echo $userData['choice'][$col];
@@ -128,8 +136,23 @@ foreach ($trArray as $tr){
 	         if($durchlauf == 1){        
                 foreach ($template['doodleData'] as $fullname => $userData) { ?>
                  <td class="centeralign" style="width:<?php echo $template['fieldwidth'] ?>">
-                  <?php echo $userData['editLinks'].$fullname; ?> 			  
-                 </td>	   
+			 
+			 
+                 <?php
+		if ($template['printName'] == 'both'){
+			echo $userData['editLinks'].$fullname.' ('.$userData['username'].')'; 
+		} elseif ($template['printName'] == 'fullname'){
+			 echo $userData['editLinks'].$fullname;
+		}elseif ($template['printName'] == 'username'){
+			echo $userData['editLinks'].$userData['username']; 
+		} 
+		?>				  
+                 
+	     
+	     
+	     
+	     
+	     </td>	   
  <?php 
 		            for ($col = 0; $col < $c; $col++) {
                      $userAuswahl[$userZahl][$col] = $userData['choice'][$col];

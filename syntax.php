@@ -31,6 +31,7 @@ require_once(DOKU_PLUGIN.'syntax.php');
  *   showMode="all|own"
  *   showSum="true|false"
  *   userlist="vertical|horizontal"
+ *   printUser="both|fullname|username"
  *   closed="true|false" >
  *     * Option 1 
  *     * Option 2 **some wikimarkup** \\ is __allowed__!
@@ -69,6 +70,11 @@ require_once(DOKU_PLUGIN.'syntax.php');
  * <h3>userlist</h3>
  * vertical	- User displayed in Rows
  * horizontal	- User displayed in Columns
+ *
+ * <h3>printname</h3>
+ * both		- Fullname & Username
+ * fullname	- Fullname
+ * username	- Username
  *
  * If closed=="true", then no one can vote anymore. The result will still be shown on the page.
  *
@@ -122,6 +128,7 @@ class syntax_plugin_doodle4 extends DokuWiki_Syntax_Plugin
 	    'showMode'	     => 'all',
 	    'showSum'	     => TRUE,
             'adminMail'      => null,
+	    'printName' => 'both',
             'voteType'       => 'default',
             'closed'         => FALSE,
 	    'fieldwidth'     => 'auto',
@@ -176,6 +183,12 @@ class syntax_plugin_doodle4 extends DokuWiki_Syntax_Plugin
 			if ($time < time()) $params['closed'] = 1;
 		} else {
                 	$params['closed'] = 0;
+		}
+            } 
+	    else
+	    if (strcmp($name, "PRINTNAME") == 0) {
+		if ($value == 'fullname' || $value == 'username' || $value == 'both'){
+			$params['printName'] = $value;
 		}
             } else
 	    if (strcmp($name, "SHOWMODE") == 0) {
@@ -336,6 +349,7 @@ class syntax_plugin_doodle4 extends DokuWiki_Syntax_Plugin
             $this->template['msg'] = $this->getLang('poll_closed');
         }
 	$this->template['showSum'] = $this->params['showSum'];
+	$this->template['printName'] = $this->params['printName'];
         $this->template['userlist'] = $this->params['userlist'];
 	    
         for($col = 0; $col < count($this->choices); $col++) {
@@ -583,7 +597,18 @@ class syntax_plugin_doodle4 extends DokuWiki_Syntax_Plugin
         $TR .= '<td class="rightalign">';
         if ($fullname) {
             if ($editMode) $TR .= $this->getLang('edit').':&nbsp;';
-            $TR .= $fullname.'&nbsp;('.$_SERVER['REMOTE_USER'].')';
+		
+		if ($this->params['printName'] == 'both'){
+			$TR .= $fullname.'&nbsp;('.$_SERVER['REMOTE_USER'].')'; 
+		} elseif ($this->params['printName'] == 'fullname'){
+			 $TR .= $fullname;
+		}elseif ($this->params['printName'] == 'username'){
+			$TR .= $_SERVER['REMOTE_USER'];
+		} 
+		
+          
+		
+		
             $TR .= '<input type="hidden" name="fullname" value="'.$fullname.'">';
         } else {
             $TR .= '<input type="text" name="fullname" value="">';
