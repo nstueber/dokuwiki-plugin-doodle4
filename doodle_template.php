@@ -48,13 +48,16 @@ if ($template['userlist'] == 'vertical'){
      <tr>
          <td class="rightalign"> 
            <?php
-		if ($template['printName'] == 'both'){
+		if (strcmp($template['printName'],'none')==0){
+                        echo $userData['editLinks']."anonyme";
+                }elseif (strcmp($template['printName'],'both')==0){
 			echo $userData['editLinks'].$fullname.' ('.$userData['username'].')'; 
-		} elseif ($template['printName'] == 'fullname'){
+		} elseif (strcmp($template['printName'],'fullname')==0){
 			 echo $userData['editLinks'].$fullname;
-		}elseif ($template['printName'] == 'username'){
+		}elseif (strcmp($template['printName'],'username')==0){
 			echo $userData['editLinks'].$userData['username']; 
 		} 
+
 	?>
          </td>
          <?php for ($col = 0; $col < $c; $col++) {
@@ -145,7 +148,9 @@ foreach ($trArray as $tr){
 			 echo $userData['editLinks'].$fullname;
 		}elseif ($template['printName'] == 'username'){
 			echo $userData['editLinks'].$userData['username']; 
-		} 
+		} elseif ($template['printName'] == 'none'){
+                        echo "anonyme";
+                }
 		?>				  
                  
 	     
