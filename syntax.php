@@ -666,7 +666,7 @@ class syntax_plugin_doodle4 extends DokuWiki_Syntax_Plugin
             if ($this->params['buttontext'] === 'vote' ) {
                 $TR .= '    <input type="submit" id="voteButton" value=" '.$this->getLang('btn_change').' " name="change__vote" class="button">';
             } else {
-                $TR .= '    <input type="submit" id="voteButton" value=" '.$this->params['buttontext'].' " name="cast__vote" class="button">';            
+                $TR .= '    <input type="submit" id="voteButton" value=" '.$this->params['buttontext'].' " name="change__vote" class="button">';            
             }
         } else {
             if ($this->params['buttontext'] === 'vote' ) {
