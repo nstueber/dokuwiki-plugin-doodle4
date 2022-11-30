@@ -290,7 +290,7 @@ class syntax_plugin_doodle4 extends DokuWiki_Syntax_Plugin
 
         // ----- FORM ACTIONS (only allowed when showing the most recent version of the page, not when editing) -----
         $formId =  'doodle__form__'.cleanID($this->params['title']);
-        if ($ACT == 'show' && $_REQUEST['formId'] == $formId && $REV == false) {
+        if ($ACT == 'show' && array_key_exists('formId', $_REQUEST) && $_REQUEST['formId'] == $formId && $REV == false) {
             // ---- cast new vote
             if (!empty($_REQUEST['cast__vote'])) {
                 $this->castVote();
@@ -668,7 +668,7 @@ class syntax_plugin_doodle4 extends DokuWiki_Syntax_Plugin
             }
         }
         
-        if (strcmp($this->params['sort'], 'time') == 0) {
+        if (array_key_exists('sort', $this->params) && strcmp($this->params['sort'], 'time') == 0) {
             debout("sorting by time");
             uasort($doodle, 'cmpEntryByTime');
         } else {
